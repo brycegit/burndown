@@ -1,0 +1,27 @@
+{
+  "name": "burn_down-mvp_project",
+  "version": "1.0.0",
+  "description": "Goal: create an MVP version of a project mgmt burn down app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brycegit/burndown.git"
+  },
+  "keywords": [
+    "project",
+    "management",
+    "node",
+    "javascript",
+    "react",
+    "mongodb"
+  ],
+  "author": "Bryce Dooley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brycegit/burndown/issues"
+  },
+  "homepage": "https://github.com/brycegit/burndown#readme"
+}
