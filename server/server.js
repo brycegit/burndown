@@ -7,7 +7,7 @@ var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
 var dburl = 'mongodb://localhost:27017/burndown';
 
-app.listen(3000, () => {
+app.listen(80, () => {
   console.log('UP AND RUNNING!');
 });
 
