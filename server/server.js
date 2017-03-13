@@ -26,10 +26,17 @@ app.post('/', (req, res) => {
   mongo.connect(dburl, (err, db) => {
     // assert.equal(null, err);
     console.log('Connected to database');
-    addTasks(db, req.body);
+    console.log('body', req.body);
+    var input = {
+      week: req.body.week,
+      name: req.body.name,
+      estimate: req.body.estimate,
+      percent: req.body.percent
+    }
+    addTasks(db, input);
     db.close();
   })
-  res.send('Success');
+  res.send(req);
 });
 
 // FUNCTIONS
