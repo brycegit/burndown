@@ -2,12 +2,13 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
+var port = process.env.PORT || 3000;
 
 var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
 var dburl = 'mongodb://localhost:27017/burndown';
 
-app.listen(80, () => {
+app.listen(port, () => {
   console.log('UP AND RUNNING!');
 });
 
