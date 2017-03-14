@@ -9483,6 +9483,11 @@ var App = function (_React$Component) {
       return React.createElement(
         'div',
         null,
+        React.createElement(
+          'h1',
+          null,
+          'Burn Down Generator'
+        ),
         React.createElement(Form, null),
         React.createElement(TasksList, { tasks: this.state.tasks })
       );
