@@ -22,6 +22,18 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/tasks', (request, response) => {
+  mongo.connect(dburl, (err, db) => {
+    // assert.equal(null, err);
+    console.log('Connected to database');
+    getTasks(db, response);
+  })
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 //POST
 app.post('/', (req, res) => {
   mongo.connect(dburl, (err, db) => {
@@ -57,6 +69,28 @@ const addTasks = (db, task) => {
   })
   .then((result) => {
     console.log('SUCCESS!');
+  })
+  .catch((err) => console.log('ERROR: ', error))
+}
+
+const getTasks = (db, response) => {
+  console.log('get tasks called');
+  var tasks = db.collection('tasks');
+  var get = new Promise((res, rej) => {
+    console.log('promise called');
+    tasks.find().toArray((err, result) => {
+      console.log('find called');
+      if (err) {
+        rej();
+      }
+      console.log('results', result)
+      res(result);
+    });
+  })
+  .then((result) => {
+    console.log('SUCCESS!');
+    response.status(200).send(result);
+    db.close();
   })
   .catch((err) => console.log('ERROR: ', error))
 }
