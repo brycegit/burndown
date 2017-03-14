@@ -16,7 +16,6 @@ app.listen(port, () => {
 
 mongo.connect(dburl, (err, db) => {
   setStatus(db);
-  db.close();
 })
 
 // app.use(express.static('public'));
@@ -33,6 +32,14 @@ app.get('/tasks', (request, response) => {
     // assert.equal(null, err);
     console.log('Connected to database');
     getTasks(db, response);
+  })
+});
+
+app.get('/status', (request, response) => {
+  mongo.connect(dburl, (err, db) => {
+    // assert.equal(null, err);
+    console.log('Connected to database');
+    getStatus(db, response);
   })
 });
 
@@ -82,18 +89,49 @@ const updateStatus = (db, val, type) => {
   .catch((err) => console.log('ERROR: ', error))
 }
 
-const setStatus = (db) => {
-  var tasks = db.collection('status');
-  var add = new Promise((res, rej) => {
-    tasks.insertOne({name: 'status', budget: 0, time: 0}, (err, result) => {
+const getStatus = (db, response) => {
+  var status = db.collection('status');
+  var check = new Promise((res, rej) => {
+    status.find().toArray((err, result) => {
       if (err) {
         rej();
       }
       res(result);
+    })
+  })
+  .then((result) => {
+    console.log('GOT STATUS');
+    response.status(200).send(result);
+  })
+  .catch((err) => console.log(err))
+}
+
+const setStatus = (db) => {
+  var status = db.collection('status');
+  var check = new Promise((res, rej) => {
+    status.find().toArray((err, result) => {
+      if (err) {
+        rej();
+      }
+      if (!result.length) {
+        console.log('ADDING STATUS');
+        var add = new Promise((resp, reje) => {
+          status.insertOne({name: 'status', budget: 0, time: 0}, (err, result) => {
+            if (err) {
+              console.log('ERROR adding status', err);
+              rej();
+            }
+            resp(result);
+          });
+        })
+        .then((result) => db.close())
+      } else {
+        res(result);
+      }
     });
   })
   .then((result) => {
-    console.log('STATUS SET');
+
   })
   .catch((err) => console.log('ERROR: ', error))
 }

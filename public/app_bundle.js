@@ -9466,8 +9466,8 @@ var App = function (_React$Component) {
 
     _this.state = {
       tasks: [],
-      time: 1,
-      budget: 1
+      time: 0,
+      budget: 0
     };
     return _this;
   }
@@ -9496,6 +9496,13 @@ var App = function (_React$Component) {
       $.get('/tasks', function (data) {
         that.setState({ tasks: data });
       }).done(function () {
+        that.updateStats();
+      });
+
+      $.get('/status', function (data) {
+        that.setState({ budget: data[0].budget, time: data[0].time });
+      }).done(function (data) {
+        console.log('status data', data);
         that.updateStats();
       });
     }
@@ -9671,7 +9678,7 @@ var Stats = function Stats(_ref) {
   var state = _ref.state;
   return React.createElement(
     'div',
-    { className: state.tasks.length > 0 ? 'show stats' : 'hide' },
+    { className: state.tasks.length > 0 && state.time > 1 ? 'show stats' : 'hide' },
     React.createElement(
       'h4',
       null,

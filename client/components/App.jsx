@@ -8,8 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       tasks: [],
-      time: 1,
-      budget: 1
+      time: 0,
+      budget: 0
     }
   }
 
@@ -35,6 +35,14 @@ class App extends React.Component {
       that.setState({tasks: data});
     })
     .done(function(){
+      that.updateStats();
+    });
+
+    $.get('/status', function(data) {
+      that.setState({budget: data[0].budget, time: data[0].time});
+    })
+    .done(function(data){
+      console.log('status data', data);
       that.updateStats();
     });
   }
