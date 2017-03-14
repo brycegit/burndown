@@ -6,7 +6,8 @@ var port = process.env.PORT || 3000;
 
 var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
-var dburl = 'mongodb://localhost:27017/burndown';
+
+var dburl = process.env.PROD_MONGODB  || 'mongodb://localhost:27017/burndown';
 
 app.listen(port, () => {
   console.log('UP AND RUNNING!');
