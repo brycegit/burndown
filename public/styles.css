@@ -2,6 +2,9 @@ form {
   margin: 50px auto;
   max-width: 300px; }
 
+td {
+  cursor: pointer; }
+
 .mdl-textfield {
   margin: 0 5px;
   width: 300px; }
@@ -39,5 +42,14 @@ p {
 
 .green {
   color: green; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: block !important; }
+
+.stats {
+  margin-bottom: 100px; }
 
 /*# sourceMappingURL=styles.css.map */

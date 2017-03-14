@@ -8,8 +8,8 @@ var Form = ({click}) => (
   </button>
   <dialog className="mdl-dialog">
   <div className="mdl-dialog__content">
-  <h3>Add Task</h3>
-  <form action="#">
+  <h3 id="taskFormTitle">Add Task</h3>
+  <form id="taskForm" action="#">
     <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <label className="mdl-textfield__label" htmlFor="name">Task Name</label>
       <input className="mdl-textfield__input" type="text" id="name" />
@@ -23,6 +23,10 @@ var Form = ({click}) => (
     <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <label className="mdl-textfield__label" htmlFor="percent">% Complete</label>
       <input className="mdl-textfield__input" type="text" id="percent" />
+    </div>
+    <div className="hide mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label className="mdl-textfield__label" htmlFor="id"></label>
+      <input className="mdl-textfield__input" type="text" id="id" />
     </div>
     <button onClick={click} id="submit" className="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
       Add

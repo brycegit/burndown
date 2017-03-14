@@ -20,12 +20,18 @@
    dialogPolyfill.registerDialog(dialog);
   }
   showModalButton.addEventListener('click', function() {
+  $('#taskFormTitle').text('Add Task');
    dialog.showModal();
   });
   dialog.querySelector('.close').addEventListener('click', function() {
+    $('.mdl-textfield').removeClass('is-dirty');
    dialog.close();
   });
   dialog.querySelector('#close').addEventListener('click', function() {
+    $( '#taskForm' ).each(function(){
+      this.reset();
+    });
+    $('.mdl-textfield').removeClass('is-dirty');
    dialog.close();
   });
 </script>
@@ -36,7 +42,8 @@
     var task = {
       name: $('#name').val(),
       estimate: $('#estimate').val(),
-      percent: $('#percent').val()
+      percent: $('#percent').val(),
+      id: $('#id').val()
     }
     console.log('task from form', task);
     $.ajax({
@@ -46,6 +53,9 @@
       contentType: 'application/json',
       success: function(data){
         console.log('success');
+        $( '#taskForm' ).each(function(){
+          this.reset();
+        });
       },
       error: function(error){
         console.error('Error client post', error);

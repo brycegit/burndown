@@ -1,14 +1,15 @@
 var React = require('react');
 var Form = require('./Form.jsx');
 var TasksList = require('./TasksList.jsx');
+var Stats = require('./Stats.jsx');
+
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      tasks: [{name: 'This is the name of an important task', estimate: 10, percent: 50}],
-      time: 100,
-      budget: 80,
-      ev: 0
+      tasks: [],
+      time: 1,
+      budget: 1
     }
   }
 
@@ -21,10 +22,11 @@ class App extends React.Component {
     }, 0);
     this.setState({tw: totalWork});
     var pv = totalWork * (this.state.time/100);
-    this.setState({ev: ev});
-    this.setState({pv: pv})
+    this.setState({ev: Math.floor(ev)});
+    this.setState({pv: Math.floor(pv)})
     this.setState({vel: Math.floor((ev / pv) * 100)});
     this.setState({eff: Math.floor((((ev / totalWork) * 100) / this.state.budget) * 100)});
+    this.setState({length: this.state.tasks.length});
   }
 
   updateData(){
@@ -37,9 +39,21 @@ class App extends React.Component {
     });
   }
 
-
   componentWillMount(){
     this.updateData();
+  }
+
+  taskClick(index){
+    var task = this.state.tasks[index];
+    dialog.showModal();
+    $('.mdl-textfield').addClass('is-dirty');
+    $('#name').val(task.name);
+    // $("label[for='name']").val('asdf');
+    $('#estimate').val(task.estimate);
+    // $("label[for='estimate']").val('asdf');
+    $('#percent').val(task.percent);
+    $('#id').val(task._id);
+    $('#taskFormTitle').text('Update Task');
   }
 
   render(){
@@ -49,12 +63,8 @@ class App extends React.Component {
       <h4>Total time passed: {this.state.time}%</h4>
       <h4>Budget used: {this.state.budget}%</h4>
       <Form click={this.updateData.bind(this)} />
-      <TasksList tasks={this.state.tasks} />
-      <h4>Stats:</h4>
-      <p className={this.state.vel < 80 ? 'red' : 'green'}><strong>Velocity:</strong> {this.state.vel}%</p>
-      <p className={this.state.eff < 80 ? 'red' : 'green'}><strong>Efficiency:</strong> {this.state.eff}%</p>
-      <p><strong>Work Completed:</strong> {this.state.ev} Hours</p>
-      <p><strong>Planned Work Completed:</strong> {this.state.pv} Hours</p>
+      <TasksList click={this.taskClick.bind(this)} tasks={this.state.tasks} />
+      <Stats state = {this.state}/>
       </div>
     )
   }

@@ -1,6 +1,6 @@
 var React = require('react');
 
-var TasksList = ({tasks}) => (
+var TasksList = ({tasks, click}) => (
   // {tasks.map((task, i )=> <div key={i}>{task.name}</div>)}
 
   <table id='toggle' className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -12,7 +12,7 @@ var TasksList = ({tasks}) => (
       </tr>
     </thead>
     <tbody>
-      {tasks.map((task, i )=> (<tr key={i}>
+      {tasks.map((task, i)=> (<tr onClick={() => click(i)} key={i}>
             <td className="mdl-data-table__cell--non-numeric">{task.name}</td>
             <td>{task.estimate}</td>
             <td>{task.percent}%</td>
