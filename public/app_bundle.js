@@ -9492,103 +9492,61 @@ module.exports = __webpack_require__(110);
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var React = __webpack_require__(31);
 
-var Form = function (_React$Component) {
-  _inherits(Form, _React$Component);
-
-  function Form(props) {
-    _classCallCheck(this, Form);
-
-    return _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
-  }
-
-  _createClass(Form, [{
-    key: "handleSubmit",
-    value: function handleSubmit(task) {
-      //this is just an example of how you would submit a form
-      //you would have to implement something separately on the server
-      console.log(task);
-      // $.ajax({
-      //   url: '/',
-      //   dataType: 'application/json',
-      //   type: 'POST',
-      //   data: task,
-      //   success: function(data) {
-      //     console.log('success', data)
-      //   },
-      //   error: function(xhr, status, err) {
-      //     console.log('error');
-      //   }
-      // });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "form",
-        { onSubmit: this.handleSubmit },
-        React.createElement(
-          "div",
-          { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
-          React.createElement(
-            "label",
-            { className: "mdl-textfield__label", htmlFor: "week" },
-            "Week"
-          ),
-          React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "week" })
-        ),
-        React.createElement(
-          "div",
-          { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
-          React.createElement(
-            "label",
-            { className: "mdl-textfield__label", htmlFor: "name" },
-            "Task Name"
-          ),
-          React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "name" })
-        ),
-        React.createElement("br", null),
-        React.createElement(
-          "div",
-          { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
-          React.createElement(
-            "label",
-            { className: "mdl-textfield__label", htmlFor: "estimate" },
-            "Estimated Hours"
-          ),
-          React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "estimate" })
-        ),
-        React.createElement(
-          "div",
-          { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
-          React.createElement(
-            "label",
-            { className: "mdl-textfield__label", htmlFor: "percent" },
-            "Percent Complete"
-          ),
-          React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "percent" })
-        ),
-        React.createElement("br", null),
-        React.createElement(
-          "button",
-          { className: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" },
-          "Add"
-        )
-      );
-    }
-  }]);
-
-  return Form;
-}(React.Component);
+var Form = function Form() {
+  return React.createElement(
+    "form",
+    { action: "#" },
+    React.createElement(
+      "div",
+      { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
+      React.createElement(
+        "label",
+        { className: "mdl-textfield__label", htmlFor: "week" },
+        "Week"
+      ),
+      React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "week" })
+    ),
+    React.createElement(
+      "div",
+      { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
+      React.createElement(
+        "label",
+        { className: "mdl-textfield__label", htmlFor: "name" },
+        "Task Name"
+      ),
+      React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "name" })
+    ),
+    React.createElement("br", null),
+    React.createElement(
+      "div",
+      { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
+      React.createElement(
+        "label",
+        { className: "mdl-textfield__label", htmlFor: "estimate" },
+        "Estimated Hours"
+      ),
+      React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "estimate" })
+    ),
+    React.createElement(
+      "div",
+      { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
+      React.createElement(
+        "label",
+        { className: "mdl-textfield__label", htmlFor: "percent" },
+        "Percent Complete"
+      ),
+      React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "percent" })
+    ),
+    React.createElement("br", null),
+    React.createElement(
+      "button",
+      { id: "submit", className: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" },
+      "Add"
+    )
+  );
+};
 
 module.exports = Form;
 

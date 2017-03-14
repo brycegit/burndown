@@ -33,10 +33,11 @@ app.post('/', (req, res) => {
       estimate: req.body.estimate,
       percent: req.body.percent
     }
+    console.log('input on server', input);
     addTasks(db, input);
     db.close();
   })
-  res.send(req);
+  res.status(201).send();
 });
 
 // FUNCTIONS
