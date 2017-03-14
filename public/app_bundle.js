@@ -9463,19 +9463,45 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = { tasks: [{ week: 1, name: 'test', estimate: 'test', percent: 10 }] };
+    _this.state = {
+      tasks: [{ name: 'This is the name of an important task', estimate: 10, percent: 50 }],
+      time: 100,
+      budget: 80,
+      ev: 0
+    };
     return _this;
   }
 
   _createClass(App, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'updateStats',
+    value: function updateStats() {
+      var ev = this.state.tasks.reduce(function (acc, task) {
+        return acc + task.estimate * (task.percent / 100);
+      }, 0);
+      var totalWork = this.state.tasks.reduce(function (acc, task) {
+        return acc + task.estimate;
+      }, 0);
+      this.setState({ tw: totalWork });
+      var pv = totalWork * (this.state.time / 100);
+      this.setState({ ev: ev });
+      this.setState({ pv: pv });
+      this.setState({ vel: ev / pv * 100 });
+      this.setState({ eff: Math.floor(ev / totalWork * 100 / this.state.budget * 100) });
+    }
+  }, {
+    key: 'updateData',
+    value: function updateData() {
       var that = this;
       $.get('/tasks', function (data) {
-        console.log('data from get', data);
-      }).done(function (data) {
         that.setState({ tasks: data });
+      }).done(function () {
+        that.updateStats();
       });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.updateData();
     }
   }, {
     key: 'render',
@@ -9488,8 +9514,75 @@ var App = function (_React$Component) {
           null,
           'Burn Down Generator'
         ),
-        React.createElement(Form, null),
-        React.createElement(TasksList, { tasks: this.state.tasks })
+        React.createElement(
+          'h4',
+          null,
+          'Total time passed: ',
+          this.state.time,
+          '%'
+        ),
+        React.createElement(
+          'h4',
+          null,
+          'Budget used: ',
+          this.state.budget,
+          '%'
+        ),
+        React.createElement(Form, { click: this.updateData.bind(this) }),
+        React.createElement(TasksList, { tasks: this.state.tasks }),
+        React.createElement(
+          'h4',
+          null,
+          'Stats:'
+        ),
+        React.createElement(
+          'p',
+          { className: this.state.vel < 80 ? 'red' : 'green' },
+          React.createElement(
+            'strong',
+            null,
+            'Velocity:'
+          ),
+          ' ',
+          this.state.vel,
+          '%'
+        ),
+        React.createElement(
+          'p',
+          { className: this.state.eff < 80 ? 'red' : 'green' },
+          React.createElement(
+            'strong',
+            null,
+            'Efficiency:'
+          ),
+          ' ',
+          this.state.eff,
+          '%'
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Work Completed:'
+          ),
+          ' ',
+          this.state.ev,
+          ' Hours'
+        ),
+        React.createElement(
+          'p',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            'Planned Work Completed:'
+          ),
+          ' ',
+          this.state.pv,
+          ' Hours'
+        )
       );
     }
   }]);
@@ -9518,7 +9611,8 @@ module.exports = __webpack_require__(111);
 
 var React = __webpack_require__(25);
 
-var Form = function Form() {
+var Form = function Form(_ref) {
+  var click = _ref.click;
   return React.createElement(
     "div",
     null,
@@ -9562,19 +9656,29 @@ var Form = function Form() {
             React.createElement(
               "label",
               { className: "mdl-textfield__label", htmlFor: "estimate" },
-              "Estimated Hours"
+              "Estimated Hours to Complete"
             ),
             React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "estimate" })
           ),
           React.createElement("br", null),
           React.createElement(
+            "div",
+            { className: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label" },
+            React.createElement(
+              "label",
+              { className: "mdl-textfield__label", htmlFor: "percent" },
+              "% Complete"
+            ),
+            React.createElement("input", { className: "mdl-textfield__input", type: "text", id: "percent" })
+          ),
+          React.createElement(
             "button",
-            { id: "submit", className: "close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" },
+            { onClick: click, id: "submit", className: "close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" },
             "Add"
           ),
           React.createElement(
             "button",
-            { id: "close", className: "close" },
+            { id: "close" },
             "X Close"
           )
         )
@@ -9600,42 +9704,53 @@ var TasksList = function TasksList(_ref) {
     // {tasks.map((task, i )=> <div key={i}>{task.name}</div>)}
 
     React.createElement(
-      "table",
-      { className: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" },
+      'table',
+      { id: 'toggle', className: 'mdl-data-table mdl-js-data-table mdl-shadow--2dp' },
       React.createElement(
-        "thead",
+        'thead',
         null,
         React.createElement(
-          "tr",
+          'tr',
           null,
           React.createElement(
-            "th",
-            { className: "mdl-data-table__cell--non-numeric" },
-            "Task"
+            'th',
+            { className: 'mdl-data-table__cell--non-numeric' },
+            'Task'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Minutes to Complete"
+            'Estimated Hours to Complete'
+          ),
+          React.createElement(
+            'th',
+            null,
+            '% Complete'
           )
         )
       ),
       React.createElement(
-        "tbody",
+        'tbody',
         null,
         tasks.map(function (task, i) {
           return React.createElement(
-            "tr",
+            'tr',
             { key: i },
             React.createElement(
-              "td",
-              { className: "mdl-data-table__cell--non-numeric" },
+              'td',
+              { className: 'mdl-data-table__cell--non-numeric' },
               task.name
             ),
             React.createElement(
-              "td",
+              'td',
               null,
               task.estimate
+            ),
+            React.createElement(
+              'td',
+              null,
+              task.percent,
+              '%'
             )
           );
         })

@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Form = () => (
+var Form = ({click}) => (
 
   <div>
   <button type="button" className="mdl-button show-modal mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
@@ -16,14 +16,18 @@ var Form = () => (
     </div>
     <br/>
     <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <label className="mdl-textfield__label" htmlFor="estimate">Estimated Hours</label>
+      <label className="mdl-textfield__label" htmlFor="estimate">Estimated Hours to Complete</label>
       <input className="mdl-textfield__input" type="text" id="estimate" />
     </div>
     <br/>
-    <button id="submit" className="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label className="mdl-textfield__label" htmlFor="percent">% Complete</label>
+      <input className="mdl-textfield__input" type="text" id="percent" />
+    </div>
+    <button onClick={click} id="submit" className="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
       Add
     </button>
-    <button id="close" className="close">
+    <button id="close">
       X Close
     </button>
   </form>

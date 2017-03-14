@@ -41,10 +41,9 @@ app.post('/', (req, res) => {
     console.log('Connected to database');
     console.log('body', req.body);
     var input = {
-      week: req.body.week,
       name: req.body.name,
-      estimate: req.body.estimate,
-      percent: req.body.percent
+      estimate: Number(req.body.estimate),
+      percent: Number(req.body.percent)
     }
     console.log('input on server', input);
     addTasks(db, input);

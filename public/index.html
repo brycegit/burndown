@@ -6,49 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-light_blue.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <title>Burn Down</title>
   </head>
-  <body class="close">
+  <body>
     <div id="app"></div>
   <script type="text/javascript" src="app_bundle.js"></script></body>
+<script>
+  var dialog = document.querySelector('dialog');
+  var showModalButton = document.querySelector('.show-modal');
+  if (! dialog.showModal) {
+   dialogPolyfill.registerDialog(dialog);
+  }
+  showModalButton.addEventListener('click', function() {
+   dialog.showModal();
+  });
+  dialog.querySelector('.close').addEventListener('click', function() {
+   dialog.close();
+  });
+  dialog.querySelector('#close').addEventListener('click', function() {
+   dialog.close();
+  });
+</script>
 </html>
 <script>
-$("#submit").click(function(e) {
-  e.preventDefault();
-  var task = {
-    week: $('#week').val(),
-    name: $('#name').val(),
-    estimate: $('#estimate').val(),
-    percent: $('#percent').val()
-  }
-  console.log('task from form', task);
-  $.ajax({
-    url: '/',
-    type: 'POST',
-    data: JSON.stringify(task),
-    contentType: 'application/json',
-    success: function(data){
-      console.log('success');
-    },
-    error: function(error){
-      console.error('Error client post', error);
+  $("#submit").click(function(e) {
+    e.preventDefault();
+    var task = {
+      name: $('#name').val(),
+      estimate: $('#estimate').val(),
+      percent: $('#percent').val()
     }
+    console.log('task from form', task);
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      data: JSON.stringify(task),
+      contentType: 'application/json',
+      success: function(data){
+        console.log('success');
+      },
+      error: function(error){
+        console.error('Error client post', error);
+      }
+    });
   });
-});
 </script>
-<script>
-   var dialog = document.querySelector('dialog');
-   var showModalButton = document.querySelector('.show-modal');
-   if (! dialog.showModal) {
-     dialogPolyfill.registerDialog(dialog);
-   }
-   showModalButton.addEventListener('click', function() {
-     dialog.showModal();
-   });
-   dialog.querySelector('.close #close').addEventListener('click', function() {
-     dialog.close();
-   });
- </script>
+<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
