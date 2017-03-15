@@ -42,7 +42,6 @@ class App extends React.Component {
       that.setState({budget: data[0].budget, time: data[0].time});
     })
     .done(function(data){
-      console.log('status data', data);
       that.updateStats();
     });
   }

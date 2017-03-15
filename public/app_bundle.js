@@ -9502,7 +9502,6 @@ var App = function (_React$Component) {
       $.get('/status', function (data) {
         that.setState({ budget: data[0].budget, time: data[0].time });
       }).done(function (data) {
-        console.log('status data', data);
         that.updateStats();
       });
     }
