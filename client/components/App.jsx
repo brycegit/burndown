@@ -67,6 +67,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
+      <div id='admin'><a href="/statusform">Admin</a></div>
       <h1>Burn Down Generator</h1>
       <h4>Total time passed: {this.state.time}%</h4>
       <h4>Budget used: {this.state.budget}%</h4>

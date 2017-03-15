@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/statusform', (request, response) => {
+  response.sendFile(path.join(__dirname + '/../public/status.html'));
+});
+
 app.get('/tasks', (request, response) => {
   mongo.connect(dburl, (err, db) => {
     // assert.equal(null, err);
@@ -74,18 +78,35 @@ app.post('/', (req, res) => {
   res.status(201).send();
 });
 
+app.post('/status', (req, res) => {
+  console.log('STATUS HIT', req.body.budget);
+  mongo.connect(dburl, (err, db) => {
+    if (req.body.budget) {
+      updateStatus(db, req.body.budget, 'budget', res);
+    }
+    if (req.body.time) {
+      updateStatus(db, req.body.time, 'time', res);
+    }
+  })
+});
+
 // FUNCTIONS
-const updateStatus = (db, val, type) => {
-  var tasks = db.collection('status');
+const updateStatus = (db, val, type, resp) => {
+  var status = db.collection('status');
   var update = new Promise((res, rej) => {
-    tasks.update({name: status}, {$set: {[type]: val}}).toArray((err, result) => {
+    status.update({name: 'status'}, {$set: {[type]: val}}, (err, result) => {
+      console.log('GOR RESULT');
       if (err) {
+        console.log(err);
         rej();
       }
       res(result);
     });
   })
-  .then((result) => console.log('SUCCESS'))
+  .then((result) => {
+    console.log('SUCCESS');
+    resp.status(201).send(result);
+  })
   .catch((err) => console.log('ERROR: ', error))
 }
 
@@ -144,12 +165,13 @@ const updateTask = (db, body) => {
   var tasks = db.collection('tasks');
   var o_id = new ObjectId(id);
   var update = new Promise((res, rej) => {
-    tasks.update({_id: o_id}, {$set: {name: name, estimate: Number(est), percent: Number(perc)}}).toArray((err, result) => {
+    tasks.update({_id: o_id}, {$set: {name: name, estimate: Number(est), percent: Number(perc)}}, (err, result) => {
+      console.log('RESULT FONR UPDATE', result);
       if (err) {
         rej();
       }
       res(result);
-    });
+    })
   })
   .then((result) => console.log('RESULTS FROM FIND', result))
   .catch((err) => console.log('ERROR: ', error))

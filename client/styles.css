@@ -35,7 +35,7 @@ p {
   text-align: left;
   margin: 0 auto;
   max-width: 275px;
-  font-size: 15px; }
+  font-size: 16px; }
 
 .red {
   color: red; }
@@ -51,5 +51,14 @@ p {
 
 .stats {
   margin-bottom: 100px; }
+
+#admin {
+  position: absolute;
+  right: 20px;
+  top: 20px; }
+
+.done {
+  text-decoration: line-through;
+  color: #cdcdcd; }
 
 /*# sourceMappingURL=styles.css.map */

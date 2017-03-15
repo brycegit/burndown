@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.amber-light_blue.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <title>Burn Down | Update Status</title>
+    <style>
+      form, h3{
+        max-width: 300px;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+
+    <h3 id="statusFormTitle">Update Status</h3>
+    <form id="statusForm" action="#">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="budget">
+        <label class="mdl-textfield__label" for="sample2">% Budget Used</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="time">
+        <label class="mdl-textfield__label" for="sample2">% Time Used</label>
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
+      <button id="submit" className="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Add
+      </button>
+    </form>
+    </div>
+
+
+  </body>
+</html>
+<script>
+  $("#submit").click(function(e) {
+    e.preventDefault();
+    var status = {
+      budget: $('#budget').val(),
+      time: $('#time').val(),
+    }
+    $.ajax({
+      url: '/status',
+      type: 'POST',
+      data: JSON.stringify(status),
+      contentType: 'application/json',
+      success: function(data){
+        console.log('success');
+        $( '#statusForm' ).each(function(){
+          this.reset();
+        });
+      },
+      error: function(error){
+        console.error('Error client post', error);
+      }
+    });
+    window.location.replace("/");
+  });
+</script>

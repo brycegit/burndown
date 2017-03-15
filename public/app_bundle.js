@@ -9532,6 +9532,15 @@ var App = function (_React$Component) {
         'div',
         null,
         React.createElement(
+          'div',
+          { id: 'admin' },
+          React.createElement(
+            'a',
+            { href: '/statusform' },
+            'Admin'
+          )
+        ),
+        React.createElement(
           'h1',
           null,
           'Burn Down Generator'
@@ -9678,7 +9687,7 @@ var Stats = function Stats(_ref) {
   var state = _ref.state;
   return React.createElement(
     'div',
-    { className: state.tasks.length > 0 && state.time > 1 ? 'show stats' : 'hide' },
+    { className: state.tasks.length > 0 && state.time > 0 ? 'show stats' : 'hide' },
     React.createElement(
       'h4',
       null,
@@ -9784,7 +9793,7 @@ var TasksList = function TasksList(_ref) {
         tasks.map(function (task, i) {
           return React.createElement(
             'tr',
-            { onClick: function onClick() {
+            { className: task.percent === 100 ? 'done' : null, onClick: function onClick() {
                 return click(i);
               }, key: i },
             React.createElement(

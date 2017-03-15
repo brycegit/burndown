@@ -12,7 +12,7 @@ var TasksList = ({tasks, click}) => (
       </tr>
     </thead>
     <tbody>
-      {tasks.map((task, i)=> (<tr onClick={() => click(i)} key={i}>
+      {tasks.map((task, i)=> (<tr className={task.percent === 100 ? 'done' : null} onClick={() => click(i)} key={i}>
             <td className="mdl-data-table__cell--non-numeric">{task.name}</td>
             <td>{task.estimate}</td>
             <td>{task.percent}%</td>
